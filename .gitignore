@@ -32,3 +32,4 @@
 *.app
 /.vs/HelloGraphics/v15/ipch
 /.vs/HelloGraphics/v15/Browse.VC.db
+/bin/intermediates
