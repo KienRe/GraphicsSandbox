@@ -30,6 +30,5 @@
 *.exe
 *.out
 *.app
-/bin
 /.vs/HelloGraphics/v15/ipch
 /.vs/HelloGraphics/v15/Browse.VC.db
