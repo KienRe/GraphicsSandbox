@@ -21,16 +21,20 @@
 
 # Compiled Static libraries
 *.lai
+*.lib
 *.la
 *.a
 
 # Executables
 *.out
 *.app
-/.vs/HelloGraphics/v15/ipch
-/.vs/HelloGraphics/v15/Browse.VC.db
+
+# Out
+*.pdb
+*.exe
+*.ilk
+*.exp
+
+# Folders
+/.vs
 /bin/intermediates
-/bin/Win32/Debug/*.pdb
-/bin/Win32/Debug/*.exe
-/bin/Win32/Debug/*.ilk
-/.vs/HelloGraphics/v15/.suo

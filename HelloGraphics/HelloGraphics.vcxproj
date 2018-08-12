@@ -84,8 +84,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>C:\Lib\SDL2-2.0.7\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Lib\SDL2-2.0.7\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Lib\SDL2-2.0.7\include;C:\Lib\glew-2.1.0\include;$(ProjectDir)\IMGUI;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Lib\SDL2-2.0.7\lib\x86;C:\Lib\glew-2.1.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
