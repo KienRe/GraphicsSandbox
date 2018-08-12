@@ -30,3 +30,7 @@
 /.vs/HelloGraphics/v15/ipch
 /.vs/HelloGraphics/v15/Browse.VC.db
 /bin/intermediates
+/bin/Win32/Debug/*.pdb
+/bin/Win32/Debug/*.exe
+/bin/Win32/Debug/*.ilk
+/.vs/HelloGraphics/v15/.suo
