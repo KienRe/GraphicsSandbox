@@ -14,6 +14,9 @@ SDL_GLContext glContext;
 
 ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
+bool drawWireframe = false;
+bool allowWireframeSwitch = false;
+
 float vertices[] =
 {
 	0.5f,  0.5f, 0.0f,		// top right
@@ -54,6 +57,17 @@ void ImguiFrame()
 {
 	ImGui_ImplSdlGL3_NewFrame(window);
 
+	ImGui::BeginMainMenuBar();
+
+	if (ImGui::BeginMenu("Rendering"))
+	{
+		ImGui::MenuItem("Wireframe Mode", "F1", &drawWireframe, true);
+		ImGui::EndMenu();
+	}
+
+	ImGui::EndMainMenuBar();
+
+
 	// 1. Show a simple window.
 	// Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets automatically appears in a window called "Debug".
 	{
@@ -68,7 +82,7 @@ void ImguiFrame()
 		//	show_demo_window ^= 1;
 		//if (ImGui::Button("Another Window"))
 		//	show_another_window ^= 1;
-		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		//ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	}
 
 	//// 2. Show another simple window. In most cases you will use an explicit Begin/End pair to name the window.
@@ -197,8 +211,9 @@ int main(int argc, char* args[])
 		{
 			switch (event.key.keysym.sym)
 			{
-			case SDLK_d:
-				printf("lol");
+			case SDLK_F1:
+				if (event.key.repeat == 0)
+					drawWireframe = !drawWireframe;
 				break;
 			}
 		}
@@ -206,6 +221,16 @@ int main(int argc, char* args[])
 		//Imgui Frame
 		{
 			ImguiFrame();
+		}
+
+		//Debug Rendering Options
+		if (drawWireframe)
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 
 		//Rendering
