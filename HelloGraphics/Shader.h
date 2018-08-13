@@ -14,13 +14,11 @@ public:
 
 	Shader(const GLchar* vertexPath, const GLchar* fragmentPath)
 	{
-		//Get vertex/fragment shader source code from path
 		std::string vertexCode;
-		std::string fragementCode;
+		std::string fragmentCode;
 		std::ifstream vShaderFile;
 		std::ifstream fShaderFile;
 
-		//Enable ifstream exceptions
 		vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 		fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
@@ -30,23 +28,22 @@ public:
 			fShaderFile.open(fragmentPath);
 
 			std::stringstream vShaderStream, fShaderStream;
-
-			vShaderStream << vShaderStream.rdbuf();
-			fShaderStream << fShaderStream.rdbuf();
+			vShaderStream << vShaderFile.rdbuf();
+			fShaderStream << fShaderFile.rdbuf();
 
 			vShaderFile.close();
 			fShaderFile.close();
 
 			vertexCode = vShaderStream.str();
-			fragementCode = fShaderStream.str();
+			fragmentCode = fShaderStream.str();
 		}
 		catch (std::ifstream::failure e)
 		{
-			std::cout << "ERROR:SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+			std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
 		}
 
 		const char* vShaderCode = vertexCode.c_str();
-		const char* fShaderCode = fragementCode.c_str();
+		const char* fShaderCode = fragmentCode.c_str();
 
 		unsigned int vertex, fragment;
 		int success;
