@@ -37,6 +37,9 @@
     <ClInclude Include="IMGUI\stb_truetype.h">
       <Filter>IMGUI</Filter>
     </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Shaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="IMGUI">
@@ -50,7 +53,10 @@
     <None Include="imgui.ini">
       <Filter>IMGUI</Filter>
     </None>
-    <None Include="res\shaders\Basic.shader">
+    <None Include="res\shaders\shader.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="res\shaders\shader.vs">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
