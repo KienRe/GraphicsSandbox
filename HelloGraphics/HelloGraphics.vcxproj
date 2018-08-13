@@ -170,12 +170,13 @@
     <ClInclude Include="IMGUI\stb_textedit.h" />
     <ClInclude Include="IMGUI\stb_truetype.h" />
     <ClInclude Include="imgui_impl_sdl_gl3.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\textures\test.png" />
     <Image Include="res\textures\test1.png" />
     <Image Include="res\textures\test2.png" />
   </ItemGroup>
