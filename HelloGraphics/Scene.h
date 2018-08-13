@@ -1,6 +1,12 @@
 #pragma once
 
 #include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include <SDL.h>
+
 #include "Shader.h"
 #include "Texture.h"
 
@@ -66,6 +72,7 @@ public:
 		//Shader Setup
 		Shader ourShader("res/shaders/shader.vs", "res/shaders/shader.fs");
 		ourShader.use();
+
 		ourShader.setInt("texture1", 0);
 		ourShader.setInt("texture2", 1);
 
@@ -80,6 +87,15 @@ public:
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		shader.use();
+
+		glm::mat4 trans = glm::mat4(1.0f);
+
+
+		trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+		trans = glm::rotate(trans, (float)(SDL_GetTicks() / 1000.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		trans = glm::scale(trans, glm::vec3(0.5f, 0.5f, 0.5f));
+
+		shader.SetMatrix4f("transform", trans);
 
 		glBindVertexArray(model);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
