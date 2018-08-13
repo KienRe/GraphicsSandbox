@@ -9,9 +9,8 @@
 #include <imgui.h>
 #include "imgui_impl_sdl_gl3.h"
 
-#include "stb_image.h"
-
 #include "Shader.h"
+#include "Texture.h"
 
 SDL_Window* window;
 SDL_GLContext glContext;
@@ -147,66 +146,12 @@ int main(int argc, char* args[])
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
-
-	stbi_set_flip_vertically_on_load(true);
-
-	//Texture1
-	int width1, height1, nrChannels1;
-	unsigned char *data1 = stbi_load("res/textures/test1.png", &width1, &height1, &nrChannels1, 0);
-
-	unsigned int texture1;
-	glGenTextures(1, &texture1);
-	glBindTexture(GL_TEXTURE_2D, texture1);
-
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	if (data1)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width1, height1, 0, GL_RGB, GL_UNSIGNED_BYTE, data1);
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		stbi_image_free(data1);
-	}
-	else
-	{
-		std::cout << "Failed to load Texture1" << std::endl;
-	}
-
-	//Texture2
-	int width2, height2, nrChannels2;
-	unsigned char *data2 = stbi_load("res/textures/test2.png", &width2, &height2, &nrChannels2, 0);
-
-	unsigned int texture2;
-	glGenTextures(1, &texture2);
-	glBindTexture(GL_TEXTURE_2D, texture2);
-
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	if (data2)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width2, height2, 0, GL_RGBA, GL_UNSIGNED_BYTE, data2);
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		stbi_image_free(data2);
-	}
-	else
-	{
-		std::cout << "Failed to load Texture2" << std::endl;
-	}
-
+	//Texture Setup
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture1);
+	Texture tex1("res/textures/test1.png", GL_RGB);
 
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, texture2);
+	Texture tex2("res/textures/test2.png", GL_RGBA);
 
 	//Shader Setup
 	Shader ourShader("res/shaders/shader.vs", "res/shaders/shader.fs");

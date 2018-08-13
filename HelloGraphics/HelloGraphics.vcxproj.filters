@@ -46,6 +46,9 @@
     <ClInclude Include="stb_image.h">
       <Filter>Textures</Filter>
     </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="IMGUI">

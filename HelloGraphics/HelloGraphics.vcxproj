@@ -172,6 +172,7 @@
     <ClInclude Include="imgui_impl_sdl_gl3.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\test.png" />
