@@ -14,6 +14,11 @@ private:
 	int nrChannels;
 
 public:
+	Texture()
+	{
+
+	}
+
 	Texture(const char* texturePath, GLenum format)
 	{
 		stbi_set_flip_vertically_on_load(true);

@@ -50,7 +50,10 @@ public:
 			std::cout << "Glew initalized succesfully! \nVideo Driver Version: " << glGetString(GL_VERSION) << "\n";
 		}
 
-		//Imgui INIT
+		//OPENGL CONFIGURATION
+		glEnable(GL_DEPTH_TEST);
+
+		//IMGUI INIT
 		ImGui_ImplSdlGL3_Init(window);
 		ImGui::StyleColorsClassic();
 	}
