@@ -9,6 +9,7 @@
 
 #include "Shader.h"
 #include "Texture.h"
+#include "Window.h"
 
 #include "VertexBuffer.h"
 #include "VertexArray.h"
@@ -71,6 +72,13 @@ glm::vec3 cubePositions[] = {
 	glm::vec3(-1.3f,  1.0f, -1.5f)
 };
 
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
+glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
+glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
+
 VertexArray vao;
 Shader shader;
 Texture t1;
@@ -122,16 +130,22 @@ public:
 		//Bind Shader
 		shader.use();
 
-		// create transformations
+		//Create Transformation Matrixes
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 projection = glm::mat4(1.0f);
-		projection = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-		// pass transformation matrices to the shader
-		shader.setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+
+		projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+
+		float radius = 10.0f;
+		float camX = sin(SDL_GetTicks() / 1000.f) * radius;
+		float camZ = cos(SDL_GetTicks() / 1000.f) * radius;
+
+		view = glm::lookAt(glm::vec3(camX, 0.0f, camZ), cameraTarget, up);
+
+		shader.setMat4("projection", projection);
 		shader.setMat4("view", view);
 
-		// render boxes
+		//Bind Vertey Array Object
 		vao.Bind();
 
 		for (unsigned int i = 0; i < 10; i++)
