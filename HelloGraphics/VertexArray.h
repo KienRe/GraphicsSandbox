@@ -3,6 +3,7 @@
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
 #include <GL/glew.h>
+#include "Debug.h"
 
 class VertexArray
 {
@@ -11,18 +12,20 @@ private:
 
 public:
 	VertexArray()
+		: ID(0)
 	{
-
+		//glGenVertexArrays(1, &ID);
 	}
 
 	~VertexArray()
 	{
-		glDeleteVertexArrays(1, &ID);
+		//glDeleteVertexArrays(1, &ID);
+		//glCheckError();
 	}
 
 	void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout)
-	{
-		if(ID == NULL)
+	{	
+		if(ID == 0)
 			glGenVertexArrays(1, &ID);
 
 		Bind();
@@ -40,15 +43,21 @@ public:
 
 			offset += element.count * VertexBufferElement::GetSizeOfType(element.type);
 		}
+
+		glCheckError();
 	}
 
 	void Bind() const
 	{
 		glBindVertexArray(ID);
+
+		glCheckError();
 	}
 
 	void Unbind() const
 	{
 		glBindVertexArray(0);
+
+		glCheckError();
 	}
 };

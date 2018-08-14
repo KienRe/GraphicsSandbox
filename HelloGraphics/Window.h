@@ -52,6 +52,7 @@ public:
 
 		//OPENGL CONFIGURATION
 		glEnable(GL_DEPTH_TEST);
+		glGetError();
 
 		//IMGUI INIT
 		ImGui_ImplSdlGL3_Init(window);

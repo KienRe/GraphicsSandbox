@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 
 #include "stb_image.h"
+#include "Debug.h"
 
 class Texture
 {
@@ -47,9 +48,11 @@ public:
 		{
 			std::cout << "Failed to load Texture" << std::endl;
 		}
+
+		glCheckError();
 	}
 
-	void Bind()
+	void Bind() const
 	{
 		switch (slot)
 		{
@@ -73,11 +76,15 @@ public:
 			glActiveTexture(GL_TEXTURE0);
 		}
 
-		glBindBuffer(GL_TEXTURE_2D, ID);
+		glBindTexture(GL_TEXTURE_2D, ID);
+
+		glCheckError();
 	}
 
-	void Unbind()
+	void Unbind() const
 	{
-		glBindBuffer(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glCheckError();
 	}
 };
