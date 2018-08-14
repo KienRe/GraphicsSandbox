@@ -10,19 +10,9 @@
 #include "Shader.h"
 #include "Texture.h"
 
-//float vertices[] = {
-//	// positions          // colors           // texture coords
-//	0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,	// top right
-//	0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,	// bottom right
-//	-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-//	-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
-//};
-
-float texCoords[] = {
-	0.0f,0.0f,
-	1.0f,0.0f,
-	0.5f,1.0f
-};
+#include "VertexBuffer.h"
+#include "VertexArray.h"
+#include "VertexBufferLayout.h"
 
 float vertices[] = {
 	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -81,7 +71,7 @@ glm::vec3 cubePositions[] = {
 	glm::vec3(-1.3f,  1.0f, -1.5f)
 };
 
-unsigned int vbo;
+VertexArray vao;
 Shader shader;
 Texture t1;
 Texture t2;
@@ -91,29 +81,19 @@ class Scene
 public:
 	Scene()
 	{
-		//Vertex Array Object Setup
-		unsigned int VAO;
-		glGenVertexArrays(1, &VAO);
-		glBindVertexArray(VAO);
+		//Vertex Array Object / Vertex Buffer Object / Vertex Buffer Layout Setup
+		VertexArray vertexArray;
+		VertexBuffer vertexBuffer(vertices, sizeof(vertices));
+		VertexBufferLayout vertexBufferLayout;
 
-		//Vertex Buffer Object Setup
-		unsigned int VBO;
-		glGenBuffers(1, &VBO);
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		vertexBufferLayout.Push<float>(3);
+		vertexBufferLayout.Push<float>(2);
 
-		//Vertex Attributes Setup
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-		glEnableVertexAttribArray(1);
+		vertexArray.AddBuffer(vertexBuffer, vertexBufferLayout);
 
 		//Texture Setup
-		glActiveTexture(GL_TEXTURE0);
-		Texture tex1("res/textures/test1.png", GL_RGB);
-
-		glActiveTexture(GL_TEXTURE1);
-		Texture tex2("res/textures/test2.png", GL_RGBA);
+		Texture tex1("res/textures/test1.png", GL_RGB, 0);
+		Texture tex2("res/textures/test2.png", GL_RGBA, 1);
 
 		//Shader Setup
 		Shader ourShader("res/shaders/shader.vs", "res/shaders/shader.fs");
@@ -122,7 +102,8 @@ public:
 		ourShader.setInt("texture1", 0);
 		ourShader.setInt("texture2", 1);
 
-		vbo = VBO;
+		//Assign members
+		vao = vertexArray;
 		shader = ourShader;
 		t1 = tex1;
 		t2 = tex2;
@@ -130,39 +111,37 @@ public:
 
 	void Render()
 	{
-		//Rendering
+		//Clear Color
 		glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glActiveTexture(GL_TEXTURE0);
+		//Bind Textures
 		t1.Bind();
-		glActiveTexture(GL_TEXTURE1);
 		t2.Bind();
 
+		//Bind Shader
 		shader.use();
 
-		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::rotate(model, (SDL_GetTicks() / 1000.0f) * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
-		glm::mat4 view = glm::mat4(1.0f);
+		// create transformations
+		glm::mat4 view;
+		glm::mat4 projection;
+		projection = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
 		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+		// pass transformation matrices to the shader
+		shader.setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+		shader.setMat4("view", view);
 
-		glm::mat4 projection = glm::mat4(1.0f);
-		projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-
-		shader.SetMatrix4f("model", model);
-		shader.SetMatrix4f("view", view);
-		shader.SetMatrix4f("projection", projection);
-
-		glBindVertexArray(vbo);
+		// render boxes
+		vao.Bind();
 
 		for (unsigned int i = 0; i < 10; i++)
 		{
-			glm::mat4 model = glm::mat4(1.0f);
+			// calculate the model matrix for each object and pass it to shader before drawing
+			glm::mat4 model;
 			model = glm::translate(model, cubePositions[i]);
-			float angle = 20.f * i;
+			float angle = 20.0f * i;
 			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-			shader.SetMatrix4f("model", model);
+			shader.setMat4("model", model);
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}

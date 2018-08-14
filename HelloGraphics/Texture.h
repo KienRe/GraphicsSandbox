@@ -12,6 +12,7 @@ private:
 	int height;
 	int width;
 	int nrChannels;
+	int slot;
 
 public:
 	Texture()
@@ -19,8 +20,10 @@ public:
 
 	}
 
-	Texture(const char* texturePath, GLenum format)
+	Texture(const char* texturePath, GLenum format, int slot)
 	{
+		this->slot = slot;
+
 		stbi_set_flip_vertically_on_load(true);
 		unsigned char *data = stbi_load(texturePath, &width, &height, &nrChannels, 0);
 
@@ -48,6 +51,28 @@ public:
 
 	void Bind()
 	{
+		switch (slot)
+		{
+		case 0:
+			glActiveTexture(GL_TEXTURE0);
+		case 1:
+			glActiveTexture(GL_TEXTURE1);
+		case 2:
+			glActiveTexture(GL_TEXTURE2);
+		case 3:
+			glActiveTexture(GL_TEXTURE3);
+		case 4:
+			glActiveTexture(GL_TEXTURE4);
+		case 5:
+			glActiveTexture(GL_TEXTURE5);
+		case 6:
+			glActiveTexture(GL_TEXTURE6);
+		case 7:
+			glActiveTexture(GL_TEXTURE7);
+		case 8:
+			glActiveTexture(GL_TEXTURE0);
+		}
+
 		glBindBuffer(GL_TEXTURE_2D, ID);
 	}
 

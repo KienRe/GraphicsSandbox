@@ -55,6 +55,15 @@
     <ClInclude Include="Window.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>Rendering\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferLayout.h">
+      <Filter>Rendering\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexArray.h">
+      <Filter>Rendering\Buffers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Rendering">
@@ -74,6 +83,9 @@
     </Filter>
     <Filter Include="Rendering\IMGUI">
       <UniqueIdentifier>{df39a58f-255f-4209-accf-14799f6b9dc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Buffers">
+      <UniqueIdentifier>{ac844f00-e7bf-4815-b6fb-1af56c99b309}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
