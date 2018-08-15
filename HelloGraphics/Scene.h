@@ -107,6 +107,14 @@ public:
 		ourShader.setInt("texture1", 0);
 		ourShader.setInt("texture2", 1);
 
+		//Camera Setup
+		float cameraSpeed = 0.05f;
+
+		Input::Register("CAMERA_MOVE_UP", [cameraSpeed]() { cameraPos += cameraSpeed * cameraFront; }, SDLK_w);
+		Input::Register("CAMERA_MOVE_DOWN", [cameraSpeed]() { cameraPos -= cameraSpeed * cameraFront; }, SDLK_s);
+		Input::Register("CAMERA_MOVE_LEFT", [cameraSpeed]() { cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed; }, SDLK_a);
+		Input::Register("CAMERA_MOVE_RIGHT", [cameraSpeed]() { cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed; }, SDLK_d);
+
 		//Assign members
 		vao = vertexArray;
 		shader = ourShader;
