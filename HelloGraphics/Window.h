@@ -10,6 +10,8 @@
 
 #include <functional>
 
+#include "Input.h"
+
 class Window
 {
 private:
@@ -125,14 +127,7 @@ public:
 			ImGui_ImplSdlGL3_ProcessEvent(&event);
 
 			//Input Events
-			if (event.type == SDL_KEYDOWN)
-			{
-				switch (event.key.keysym.sym)
-				{
-				case SDLK_F1:
-					break;
-				}
-			}
+			Input::Update(event);
 
 			//Imgui Frame
 			{

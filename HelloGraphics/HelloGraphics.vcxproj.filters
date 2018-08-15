@@ -17,6 +17,9 @@
     <ClCompile Include="stb_image_impl.cpp">
       <Filter>Rendering\Textures</Filter>
     </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IMGUI\imconfig.h">
@@ -67,6 +70,12 @@
     <ClInclude Include="Debug.h">
       <Filter>Rendering\Debug</Filter>
     </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="InputData.h">
+      <Filter>Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Rendering">
@@ -92,6 +101,9 @@
     </Filter>
     <Filter Include="Rendering\Debug">
       <UniqueIdentifier>{2550f0b0-d2b3-4770-9ee8-f99dd68a7b51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{f34af54e-497e-4c2f-9128-fd890f86b0b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
