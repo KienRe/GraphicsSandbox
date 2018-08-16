@@ -10,6 +10,7 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "Window.h"
+#include "Camera.h"
 
 #include "VertexBuffer.h"
 #include "VertexArray.h"
@@ -72,17 +73,11 @@ glm::vec3 cubePositions[] = {
 	glm::vec3(-1.3f,  1.0f, -1.5f)
 };
 
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-float sensivity = 0.05f;
-float pitch = 0;
-float yaw = 0;
-
 VertexArray vao;
 Shader shader;
 Texture t1;
 Texture t2;
+Camera camera;
 
 class Scene
 {
@@ -110,17 +105,6 @@ public:
 		ourShader.setInt("texture1", 0);
 		ourShader.setInt("texture2", 1);
 
-		//Camera Setup
-		float cameraSpeed = 0.05f;
-
-		Input::Register("CAMERA_MOVE_UP", [cameraSpeed]() { cameraPos += cameraSpeed * cameraFront; }, SDLK_w);
-		Input::Register("CAMERA_MOVE_DOWN", [cameraSpeed]() { cameraPos -= cameraSpeed * cameraFront; }, SDLK_s);
-		Input::Register("CAMERA_MOVE_LEFT", [cameraSpeed]() { cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed; }, SDLK_a);
-		Input::Register("CAMERA_MOVE_RIGHT", [cameraSpeed]() { cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed; }, SDLK_d);
-		Input::Register("ESCAPE MOUSE", []() {SDL_SetRelativeMouseMode(SDL_GetRelativeMouseMode() == SDL_TRUE ? SDL_FALSE : SDL_TRUE); }, SDLK_ESCAPE);
-
-		SDL_SetRelativeMouseMode(SDL_TRUE);
-
 		//Assign members
 		vao = vertexArray;
 		shader = ourShader;
@@ -130,20 +114,7 @@ public:
 
 	void Render()
 	{
-		yaw += Input::mouseData.relX * sensivity;
-		pitch += Input::mouseData.relY * sensivity * -1;
-
-		if (pitch > 89.0f)
-			pitch = 89.0f;
-		if (pitch < -89.0f)
-			pitch = -89.0f;
-
-		glm::vec3 front;
-		front.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
-		front.y = sin(glm::radians(pitch));
-		front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
-		cameraFront = glm::normalize(front);
-
+		camera.Update();
 
 		//Clear Color
 		glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
@@ -166,7 +137,7 @@ public:
 		float camX = sin(SDL_GetTicks() / 1000.f) * radius;
 		float camZ = cos(SDL_GetTicks() / 1000.f) * radius;
 
-		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		view = camera.GetViewMatrix();
 
 		shader.setMat4("projection", projection);
 		shader.setMat4("view", view);

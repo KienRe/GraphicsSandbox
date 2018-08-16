@@ -79,6 +79,9 @@
     <ClInclude Include="MouseData.h">
       <Filter>Input</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Rendering\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Rendering">
@@ -107,6 +110,9 @@
     </Filter>
     <Filter Include="Input">
       <UniqueIdentifier>{f34af54e-497e-4c2f-9128-fd890f86b0b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Camera">
+      <UniqueIdentifier>{7bd9242a-7e1f-4bde-b2df-24b08963bb05}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
