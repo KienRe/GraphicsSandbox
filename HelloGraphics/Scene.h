@@ -75,6 +75,9 @@ glm::vec3 cubePositions[] = {
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+float sensivity = 0.05f;
+float pitch = 0;
+float yaw = 0;
 
 VertexArray vao;
 Shader shader;
@@ -114,6 +117,9 @@ public:
 		Input::Register("CAMERA_MOVE_DOWN", [cameraSpeed]() { cameraPos -= cameraSpeed * cameraFront; }, SDLK_s);
 		Input::Register("CAMERA_MOVE_LEFT", [cameraSpeed]() { cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed; }, SDLK_a);
 		Input::Register("CAMERA_MOVE_RIGHT", [cameraSpeed]() { cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed; }, SDLK_d);
+		Input::Register("ESCAPE MOUSE", []() {SDL_SetRelativeMouseMode(SDL_GetRelativeMouseMode() == SDL_TRUE ? SDL_FALSE : SDL_TRUE); }, SDLK_ESCAPE);
+
+		SDL_SetRelativeMouseMode(SDL_TRUE);
 
 		//Assign members
 		vao = vertexArray;
@@ -124,6 +130,21 @@ public:
 
 	void Render()
 	{
+		yaw += Input::mouseData.relX * sensivity;
+		pitch += Input::mouseData.relY * sensivity * -1;
+
+		if (pitch > 89.0f)
+			pitch = 89.0f;
+		if (pitch < -89.0f)
+			pitch = -89.0f;
+
+		glm::vec3 front;
+		front.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+		front.y = sin(glm::radians(pitch));
+		front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+		cameraFront = glm::normalize(front);
+
+
 		//Clear Color
 		glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

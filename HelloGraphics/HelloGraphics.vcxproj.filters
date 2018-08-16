@@ -76,6 +76,9 @@
     <ClInclude Include="InputData.h">
       <Filter>Input</Filter>
     </ClInclude>
+    <ClInclude Include="MouseData.h">
+      <Filter>Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Rendering">
