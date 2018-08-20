@@ -54,7 +54,7 @@ public:
 
 		//OPENGL CONFIGURATION
 		glEnable(GL_DEPTH_TEST);
-		glGetError();
+		glGetError();	//OpenGL starts aut with an Error that we need to discard
 
 		//IMGUI INIT
 		ImGui_ImplSdlGL3_Init(window);
