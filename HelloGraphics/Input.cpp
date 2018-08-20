@@ -49,8 +49,6 @@ void Input::UpdateKeys(SDL_Event event)
 			if (event.key.keysym.sym == data.keyCode)
 			{
 				data.func();
-
-				return;
 			}
 		}
 	}

@@ -20,6 +20,8 @@ private:
 	glm::vec3 Right;
 	glm::vec3 WorldUp;
 
+	glm::vec3 frameTransform;
+
 	float Yaw;
 	float Pitch;
 
@@ -36,14 +38,15 @@ public:
 		WorldUp = up;
 		Yaw = yaw;
 		Pitch = pitch;
+		frameTransform = glm::vec3(0.0f);
 
 		updateCameraVectors();
 
 		//Register Inputs
-		Input::Register("CAMERA_MOVE_UP", [=]() { Position += MovementSpeed * Front; }, SDLK_w);
-		Input::Register("CAMERA_MOVE_DOWN", [=]() { Position -= MovementSpeed * Front; }, SDLK_s);
-		Input::Register("CAMERA_MOVE_LEFT", [=]() { Position -= MovementSpeed * Right; }, SDLK_a);
-		Input::Register("CAMERA_MOVE_RIGHT", [=]() { Position += MovementSpeed * Right; }, SDLK_d);
+		Input::Register("CAMERA_MOVE_UP", [=]() { frameTransform += MovementSpeed * Front; }, SDLK_w);
+		Input::Register("CAMERA_MOVE_DOWN", [=]() { frameTransform -= MovementSpeed * Front; }, SDLK_s);
+		Input::Register("CAMERA_MOVE_LEFT", [=]() { frameTransform -= MovementSpeed * Right; }, SDLK_a);
+		Input::Register("CAMERA_MOVE_RIGHT", [=]() { frameTransform += MovementSpeed * Right; }, SDLK_d);
 		Input::Register("ESCAPE MOUSE", []() {SDL_SetRelativeMouseMode(SDL_GetRelativeMouseMode() == SDL_TRUE ? SDL_FALSE : SDL_TRUE); }, SDLK_ESCAPE);
 
 		SDL_SetRelativeMouseMode(SDL_TRUE);
@@ -56,16 +59,25 @@ public:
 
 	void Update()
 	{
-		Yaw += Input::mouseData.relX * MouseSensivity;
-		Pitch += Input::mouseData.relY * MouseSensivity * -1;
+		Position += frameTransform;
+		frameTransform = glm::vec3(0.0f);
 
-		//Pitch Constraints
-		if (Pitch > 89.0f)
-			Pitch = 89.0f;
-		if (Pitch < -89.0f)
-			Pitch = -89.0f;
+		int relX = Input::mouseData.relX;
+		int relY = Input::mouseData.relY;
 
-		updateCameraVectors();
+		if (relX != 0 || relY != 0)
+		{
+			Yaw += relX * MouseSensivity;
+			Pitch += relY * MouseSensivity * -1;
+
+			//Pitch Constraints
+			if (Pitch > 89.0f)
+				Pitch = 89.0f;
+			if (Pitch < -89.0f)
+				Pitch = -89.0f;
+
+			updateCameraVectors();
+		}
 	}
 
 private:
