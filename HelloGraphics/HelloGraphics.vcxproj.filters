@@ -52,12 +52,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Rendering\Textures</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="VertexBuffer.h">
       <Filter>Rendering\Buffers</Filter>
     </ClInclude>
@@ -81,6 +75,12 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Rendering\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +123,12 @@
       <Filter>Rendering\Shaders\res</Filter>
     </None>
     <None Include="res\shaders\shader.vs">
+      <Filter>Rendering\Shaders\res</Filter>
+    </None>
+    <None Include="res\shaders\light.fs">
+      <Filter>Rendering\Shaders\res</Filter>
+    </None>
+    <None Include="res\shaders\light.vs">
       <Filter>Rendering\Shaders\res</Filter>
     </None>
   </ItemGroup>

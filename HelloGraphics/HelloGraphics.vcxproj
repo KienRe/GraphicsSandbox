@@ -160,6 +160,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include="res\shaders\light.fs" />
+    <None Include="res\shaders\light.vs" />
     <None Include="res\shaders\shader.fs" />
     <None Include="res\shaders\shader.vs" />
   </ItemGroup>

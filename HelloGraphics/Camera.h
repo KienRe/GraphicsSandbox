@@ -13,8 +13,9 @@ const float FOV = 45.0f;
 
 class Camera
 {
-private:
+public:
 	glm::vec3 Position;
+private:
 	glm::vec3 Front;
 	glm::vec3 Up;
 	glm::vec3 Right;
