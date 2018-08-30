@@ -166,7 +166,10 @@
     <Image Include="res\textures\test2.png">
       <Filter>Rendering\Textures\res</Filter>
     </Image>
-    <Image Include="res\textures\container.png">
+    <Image Include="res\textures\container_diffuse.png">
+      <Filter>Rendering\Textures\res</Filter>
+    </Image>
+    <Image Include="res\textures\container_specular.png">
       <Filter>Rendering\Textures\res</Filter>
     </Image>
   </ItemGroup>

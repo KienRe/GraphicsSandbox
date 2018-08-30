@@ -19,6 +19,8 @@ private:
 
 public:
 	bool drawWireframe = false;
+	bool dynamicLight = true;
+	bool rotateObjects = true;
 
 public:
 	Renderer(SDL_Window* window)
@@ -66,7 +68,9 @@ public:
 
 		if (ImGui::BeginMenu("Rendering"))
 		{
-			ImGui::MenuItem("Wireframe Mode", "", &drawWireframe, true);
+			ImGui::MenuItem("Wireframe Mode", "", &drawWireframe);
+			ImGui::MenuItem("Dynamic Lights", "", &dynamicLight);
+			ImGui::MenuItem("Rotate Objects", "", &rotateObjects);
 			ImGui::EndMenu();
 		}
 
@@ -120,7 +124,7 @@ public:
 	{
 		camera.Update();
 
-		scene.Render(camera);
+		scene.Render(camera, dynamicLight, rotateObjects);
 
 		RenderImgui();
 	}

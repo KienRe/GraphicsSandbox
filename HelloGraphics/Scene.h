@@ -108,6 +108,7 @@ float lightVertices[] = {
 VertexArray vao;
 Shader shader;
 Texture diffuseTex;
+Texture specularTex;
 
 VertexArray lightVAO;
 Shader pointLightShader;
@@ -143,27 +144,31 @@ public:
 		vertexArray.AddBuffer(vertexBuffer, vertexBufferLayout);
 
 		//Texture Setup
-		Texture diffuse("res/textures/container.png", GL_RGBA, 0);
+		diffuseTex = Texture("res/textures/container_diffuse.png", GL_RGBA, 0);
+		specularTex = Texture("res/textures/container_specular.png", GL_RGBA, 1);
 
 		//Shader Setup
 		Shader ourShader("res/shaders/shader.vs", "res/shaders/shader.fs");
 		ourShader.use();
 
 		ourShader.setInt("material.diffuse", 0);
+		ourShader.setInt("material.specular", 1);
 
 		//Assign members
 		vao = vertexArray;
 		shader = ourShader;
-		diffuseTex = diffuse;
 	}
 
-	void Render(Camera& camera)
+	void Render(Camera& camera, bool dynamicLight, bool rotateObjects)
 	{
 		//Light Color
-		glm::vec3 lightColor;
-		lightColor.x = sin((SDL_GetTicks() / 1000.0f) * 2.0f);
-		lightColor.y = sin((SDL_GetTicks() / 1000.0f) * 0.7f);
-		lightColor.z = sin((SDL_GetTicks() / 1000.0f) * 1.3f);
+		glm::vec3 lightColor = glm::vec3(1.f, 1.f, 0.94f);
+		if (dynamicLight)
+		{
+			lightColor.x = sin((SDL_GetTicks() / 1000.0f) * 2.0f);
+			lightColor.y = sin((SDL_GetTicks() / 1000.0f) * 0.7f);
+			lightColor.z = sin((SDL_GetTicks() / 1000.0f) * 1.3f);
+		}
 
 		//Create Transformation Matrixes
 		glm::mat4 projection = glm::mat4(1.0f);
@@ -199,7 +204,6 @@ public:
 		shader.setMat4("view", view);
 		shader.setVec3("viewPos", camera.Position);
 
-		shader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
 		shader.setFloat("material.shininess", 32.0f);
 
 		glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
@@ -211,7 +215,9 @@ public:
 		shader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
 		//Bind Textures
+		specularTex.Bind();
 		diffuseTex.Bind();
+
 
 		//Bind Vertey Array Object
 		vao.Bind();
@@ -221,8 +227,11 @@ public:
 			// calculate the model matrix for each object and pass it to shader before drawing
 			glm::mat4 model = glm::mat4(1.0f);
 			model = glm::translate(model, glm::vec3(0.0f, -1.0f, -2.0f * i));
-			float angle = 20.0f * i * (SDL_GetTicks() / 1000.0f);
-			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.7f));
+			if (rotateObjects)
+			{
+				float angle = 20.0f * i * (SDL_GetTicks() / 1000.0f);
+				model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.7f));
+			}
 			shader.setMat4("model", model);
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
