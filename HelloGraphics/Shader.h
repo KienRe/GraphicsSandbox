@@ -107,42 +107,54 @@ public:
 
 	void setBool(const std::string &name, bool value) const
 	{
-		glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
+		GLuint loc = glGetUniformLocation(ID, name.c_str());
+		if (loc == -1) std::cout << "ERROR::SHADER::SETBOOL::" << name << "::LOCATION_NOT_FOUND\n" << std::endl;
+		glUniform1i(loc, (int)value);
 
 		glCheckError();
 	}
 
 	void setInt(const std::string &name, int value) const
 	{
-		glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
+		GLuint loc = glGetUniformLocation(ID, name.c_str());
+		if (loc == -1) std::cout << "ERROR::SHADER::SETINT::" << name << "::LOCATION_NOT_FOUND\n" << std::endl;
+		glUniform1i(loc, value);
 
 		glCheckError();
 	}
 
 	void setFloat(const std::string &name, float value) const
 	{
-		glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+		GLuint loc = glGetUniformLocation(ID, name.c_str());
+		if (loc == -1) std::cout << "ERROR::SHADER::SETFLOAT::" << name << "::LOCATION_NOT_FOUND\n" << std::endl;
+		glUniform1f(loc, value);
 
 		glCheckError();
 	}
 
 	void setMat4(const std::string &name, glm::mat4 value) const
 	{
-		glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
+		GLuint loc = glGetUniformLocation(ID, name.c_str());
+		if (loc == -1) std::cout << "ERROR::SHADER::SETMAT4::" << name << "::LOCATION_NOT_FOUND\n" << std::endl;
+		glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(value));
 
 		glCheckError();
 	}
 
 	void setVec3(const std::string& name,glm::vec3 value) const
 	{
-		glUniform3f(glGetUniformLocation(ID,name.c_str()), value.x, value.y, value.z);
+		GLuint loc = glGetUniformLocation(ID, name.c_str());
+		if (loc == -1) std::cout << "ERROR::SHADER::SETVEC3::" << name << "::LOCATION_NOT_FOUND\n" << std::endl;
+		glUniform3f(loc, value.x, value.y, value.z);
 
 		glCheckError();
 	}
 
 	void setVec3(const std::string& name, float x, float y, float z) const
 	{
-		glUniform3f(glGetUniformLocation(ID, name.c_str()), x, y, z);
+		GLuint loc = glGetUniformLocation(ID, name.c_str());
+		if (loc == -1) std::cout << "ERROR::SHADER::SETVEC3::" << name << "::LOCATION_NOT_FOUND\n" << std::endl;
+		glUniform3f(loc, x, y, z);
 
 		glCheckError();
 	}

@@ -17,47 +17,48 @@
 #include "VertexBufferLayout.h"
 
 float vertices[] = {
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+	// positions          // normals           // texture coords
+	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
 
-	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+	 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
 
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+	 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 };
 
 float lightVertices[] = {
@@ -106,12 +107,10 @@ float lightVertices[] = {
 
 VertexArray vao;
 Shader shader;
-Texture t1;
-Texture t2;
-Camera camera;
+Texture diffuseTex;
 
 VertexArray lightVAO;
-Shader lightShader;
+Shader pointLightShader;
 
 class Scene
 {
@@ -130,7 +129,7 @@ public:
 		Shader lShader("res/shaders/light.vs", "res/shaders/light.fs");
 
 		lightVAO = lightArray;
-		lightShader = lShader;
+		pointLightShader = lShader;
 
 		//Vertex Array Object / Vertex Buffer Object / Vertex Buffer Layout Setup
 		VertexArray vertexArray;
@@ -139,30 +138,32 @@ public:
 
 		vertexBufferLayout.Push<float>(3);
 		vertexBufferLayout.Push<float>(3);
+		vertexBufferLayout.Push<float>(2);
 
 		vertexArray.AddBuffer(vertexBuffer, vertexBufferLayout);
 
 		//Texture Setup
-		Texture tex1("res/textures/test1.png", GL_RGB, 0);
-		Texture tex2("res/textures/test2.png", GL_RGBA, 1);
+		Texture diffuse("res/textures/container.png", GL_RGBA, 0);
 
 		//Shader Setup
 		Shader ourShader("res/shaders/shader.vs", "res/shaders/shader.fs");
 		ourShader.use();
 
-		ourShader.setInt("texture1", 0);
-		ourShader.setInt("texture2", 1);
+		ourShader.setInt("material.diffuse", 0);
 
 		//Assign members
 		vao = vertexArray;
 		shader = ourShader;
-		t1 = tex1;
-		t2 = tex2;
+		diffuseTex = diffuse;
 	}
 
-	void Render()
+	void Render(Camera& camera)
 	{
-		camera.Update();
+		//Light Color
+		glm::vec3 lightColor;
+		lightColor.x = sin((SDL_GetTicks() / 1000.0f) * 2.0f);
+		lightColor.y = sin((SDL_GetTicks() / 1000.0f) * 0.7f);
+		lightColor.z = sin((SDL_GetTicks() / 1000.0f) * 1.3f);
 
 		//Create Transformation Matrixes
 		glm::mat4 projection = glm::mat4(1.0f);
@@ -175,41 +176,42 @@ public:
 		glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//Light
+		//Point Light
 		glm::vec3 lightPos(0.0f, 0.0f, -1.0f);
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, lightPos);
 		model = glm::scale(model, glm::vec3(0.2f));
 
-		lightShader.use();
+		pointLightShader.use();
 
-		lightShader.setMat4("projection", projection);
-		lightShader.setMat4("view", view);
-		lightShader.setMat4("model", model);
-		lightShader.setVec3("lightPos", lightPos);
-		lightShader.setVec3("viewPos", camera.Position);
-
-		lightShader.setVec3("material.ambient", 1.0f, 0.5f, 0.81f);
-		lightShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-		lightShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
-		lightShader.setFloat("material.shininess", 32.0f);
+		pointLightShader.setMat4("projection", projection);
+		pointLightShader.setMat4("view", view);
+		pointLightShader.setMat4("model", model);
+		pointLightShader.setVec3("LightColor", lightColor);
 
 		lightVAO.Bind();
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-
 
 		//Bind Shader
 		shader.use();
 
 		shader.setMat4("projection", projection);
 		shader.setMat4("view", view);
-		shader.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
-		shader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+		shader.setVec3("viewPos", camera.Position);
+
+		shader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+		shader.setFloat("material.shininess", 32.0f);
+
+		glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
+		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
+
+		shader.setVec3("light.position", lightPos);
+		shader.setVec3("light.ambient", ambientColor);
+		shader.setVec3("light.diffuse", diffuseColor);
+		shader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
 		//Bind Textures
-		//t1.Bind();
-		//t2.Bind();
-
+		diffuseTex.Bind();
 
 		//Bind Vertey Array Object
 		vao.Bind();

@@ -166,5 +166,8 @@
     <Image Include="res\textures\test2.png">
       <Filter>Rendering\Textures\res</Filter>
     </Image>
+    <Image Include="res\textures\container.png">
+      <Filter>Rendering\Textures\res</Filter>
+    </Image>
   </ItemGroup>
 </Project>
