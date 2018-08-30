@@ -1,8 +1,12 @@
 #pragma once
 
 #include <vector>
+
 #include "InputData.h"
 #include "MouseData.h"
+
+#include <imgui.h>
+#include "imgui_impl_sdl_gl3.h"
 
 class Input
 {
@@ -14,6 +18,6 @@ private:
 public:
 	static MouseData mouseData;
 
-	static void Register(std::string eventName, std::function<void()> func, SDL_Keycode keyCode);
+	static void Register(std::string eventName, std::function<void()> func, SDL_Scancode scanCode);
 	static void Update(SDL_Event event);
 };

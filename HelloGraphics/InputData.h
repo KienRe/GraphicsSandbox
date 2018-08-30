@@ -8,5 +8,5 @@ struct InputData
 {
 	std::string eventName;
 	std::function<void()> func;
-	SDL_Keycode keyCode;
+	SDL_Scancode scanCode;
 };

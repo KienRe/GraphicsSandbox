@@ -44,11 +44,11 @@ public:
 		updateCameraVectors();
 
 		//Register Inputs
-		Input::Register("CAMERA_MOVE_UP", [=]() { frameTransform += MovementSpeed * Front; }, SDLK_w);
-		Input::Register("CAMERA_MOVE_DOWN", [=]() { frameTransform -= MovementSpeed * Front; }, SDLK_s);
-		Input::Register("CAMERA_MOVE_LEFT", [=]() { frameTransform -= MovementSpeed * Right; }, SDLK_a);
-		Input::Register("CAMERA_MOVE_RIGHT", [=]() { frameTransform += MovementSpeed * Right; }, SDLK_d);
-		Input::Register("ESCAPE MOUSE", []() {SDL_SetRelativeMouseMode(SDL_GetRelativeMouseMode() == SDL_TRUE ? SDL_FALSE : SDL_TRUE); }, SDLK_ESCAPE);
+		Input::Register("CAMERA_MOVE_UP", [=]() { frameTransform += MovementSpeed * Front; }, SDL_SCANCODE_W);
+		Input::Register("CAMERA_MOVE_DOWN", [=]() { frameTransform -= MovementSpeed * Front; }, SDL_SCANCODE_S);
+		Input::Register("CAMERA_MOVE_LEFT", [=]() { frameTransform -= MovementSpeed * Right; }, SDL_SCANCODE_A);
+		Input::Register("CAMERA_MOVE_RIGHT", [=]() { frameTransform += MovementSpeed * Right; }, SDL_SCANCODE_D);
+		Input::Register("ESCAPE MOUSE", []() {SDL_SetRelativeMouseMode(SDL_GetRelativeMouseMode() == SDL_TRUE ? SDL_FALSE : SDL_TRUE); }, SDL_SCANCODE_ESCAPE);
 
 		SDL_SetRelativeMouseMode(SDL_TRUE);
 	}

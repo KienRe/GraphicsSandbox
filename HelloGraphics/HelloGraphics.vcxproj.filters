@@ -82,6 +82,30 @@
     <ClInclude Include="Scene.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="nScene.h">
+      <Filter>GameEngineTest</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameEngineTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>GameEngineTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>GameEngineTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>GameEngineTest</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityComponents.h">
+      <Filter>GameEngineTest</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>GameEngineTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Rendering">
@@ -113,6 +137,9 @@
     </Filter>
     <Filter Include="Rendering\Camera">
       <UniqueIdentifier>{7bd9242a-7e1f-4bde-b2df-24b08963bb05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngineTest">
+      <UniqueIdentifier>{c1ef0bd0-a7cc-45f9-afcb-f2fc5c7b4857}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

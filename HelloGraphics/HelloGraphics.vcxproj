@@ -167,7 +167,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityComponents.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="IMGUI\imconfig.h" />
     <ClInclude Include="IMGUI\imgui.h" />
     <ClInclude Include="IMGUI\imgui_internal.h" />
@@ -178,10 +182,14 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputData.h" />
     <ClInclude Include="MouseData.h" />
+    <ClInclude Include="nScene.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="System.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexBufferLayout.h" />

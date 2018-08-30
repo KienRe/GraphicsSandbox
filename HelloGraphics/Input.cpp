@@ -3,12 +3,12 @@
 std::vector<InputData> Input::inputData;
 MouseData Input::mouseData;
 
-void Input::Register(std::string eventName, std::function<void()> func, SDL_Keycode keyCode)
+void Input::Register(std::string eventName, std::function<void()> func, SDL_Scancode scanCode)
 {
 	InputData data;
 	data.eventName = eventName;
 	data.func = func;
-	data.keyCode = keyCode;
+	data.scanCode = scanCode;
 
 	inputData.push_back(std::move(data));
 }
@@ -17,6 +17,8 @@ void Input::Update(SDL_Event event)
 {
 	UpdateMouse(event);
 	UpdateKeys(event);
+
+	ImGui_ImplSdlGL3_ProcessEvent(&event);
 }
 
 void Input::UpdateMouse(SDL_Event event)
@@ -42,14 +44,13 @@ void Input::UpdateMouse(SDL_Event event)
 
 void Input::UpdateKeys(SDL_Event event)
 {
+	const Uint8 *state = SDL_GetKeyboardState(NULL);
+
 	for each (auto data in inputData)
 	{
-		if (event.type == SDL_KEYDOWN)
+		if (state[data.scanCode])
 		{
-			if (event.key.keysym.sym == data.keyCode)
-			{
-				data.func();
-			}
+			data.func();
 		}
 	}
 }
