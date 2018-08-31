@@ -169,6 +169,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityComponents.h" />
     <ClInclude Include="GameObject.h" />
@@ -181,8 +182,10 @@
     <ClInclude Include="imgui_impl_sdl_gl3.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputData.h" />
+    <ClInclude Include="LightModels.h" />
     <ClInclude Include="MouseData.h" />
     <ClInclude Include="nScene.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />

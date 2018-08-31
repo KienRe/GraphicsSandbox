@@ -15,6 +15,8 @@
 #include "VertexBuffer.h"
 #include "VertexArray.h"
 #include "VertexBufferLayout.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
 
 float vertices[] = {
 	// positions          // normals           // texture coords
@@ -61,77 +63,25 @@ float vertices[] = {
 	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 };
 
-float lightVertices[] = {
-	-0.5f, -0.5f, -0.5f,
-	0.5f, -0.5f, -0.5f,
-	0.5f,  0.5f, -0.5f,
-	0.5f,  0.5f, -0.5f,
-	-0.5f,  0.5f, -0.5f,
-	-0.5f, -0.5f, -0.5f,
-
-	-0.5f, -0.5f,  0.5f,
-	0.5f, -0.5f,  0.5f,
-	0.5f,  0.5f,  0.5f,
-	0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f,  0.5f,
-	-0.5f, -0.5f,  0.5f,
-
-	-0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f, -0.5f,
-	-0.5f, -0.5f, -0.5f,
-	-0.5f, -0.5f, -0.5f,
-	-0.5f, -0.5f,  0.5f,
-	-0.5f,  0.5f,  0.5f,
-
-	0.5f,  0.5f,  0.5f,
-	0.5f,  0.5f, -0.5f,
-	0.5f, -0.5f, -0.5f,
-	0.5f, -0.5f, -0.5f,
-	0.5f, -0.5f,  0.5f,
-	0.5f,  0.5f,  0.5f,
-
-	-0.5f, -0.5f, -0.5f,
-	0.5f, -0.5f, -0.5f,
-	0.5f, -0.5f,  0.5f,
-	0.5f, -0.5f,  0.5f,
-	-0.5f, -0.5f,  0.5f,
-	-0.5f, -0.5f, -0.5f,
-
-	-0.5f,  0.5f, -0.5f,
-	0.5f,  0.5f, -0.5f,
-	0.5f,  0.5f,  0.5f,
-	0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f, -0.5f,
+glm::vec3 pointLightPositions[] = {
+	glm::vec3(0.7f,  0.2f,  2.0f),
+	glm::vec3(2.3f, -3.3f, -4.0f),
+	glm::vec3(-4.0f,  2.0f, -12.0f),
+	glm::vec3(0.0f,  0.0f, -3.0f)
 };
 
 VertexArray vao;
 Shader shader;
 Texture diffuseTex;
 Texture specularTex;
-
-VertexArray lightVAO;
-Shader pointLightShader;
+DirectionalLight dirLight;
+std::vector<PointLight> pointLights;
 
 class Scene
 {
 public:
 	Scene()
 	{
-		//Light
-		VertexArray lightArray;
-		VertexBuffer lightBuffer(lightVertices, sizeof(lightVertices));
-		VertexBufferLayout lightLayout;
-
-		lightLayout.Push<float>(3);
-
-		lightArray.AddBuffer(lightBuffer, lightLayout);
-
-		Shader lShader("res/shaders/light.vs", "res/shaders/light.fs");
-
-		lightVAO = lightArray;
-		pointLightShader = lShader;
-
 		//Vertex Array Object / Vertex Buffer Object / Vertex Buffer Layout Setup
 		VertexArray vertexArray;
 		VertexBuffer vertexBuffer(vertices, sizeof(vertices));
@@ -157,19 +107,24 @@ public:
 		//Assign members
 		vao = vertexArray;
 		shader = ourShader;
+
+		//Light Setup
+		glm::vec3 lightPos(0.0f, 0.0f, 8.f);
+		glm::vec3 lightColor = glm::vec3(1.f, 1.f, 0.94f);
+
+		glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
+		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
+
+		dirLight = DirectionalLight(lightPos, glm::vec3(0.f, 0.f, -1.f), ambientColor, diffuseColor, glm::vec3(1.0f, 1.0f, 1.0f));
+
+		for (size_t i = 0; i < 4; i++)
+		{
+			pointLights.push_back(PointLight(i, pointLightPositions[i], ambientColor, diffuseColor, glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f));
+		}
 	}
 
 	void Render(Camera& camera, bool dynamicLight, bool rotateObjects)
 	{
-		//Light Color
-		glm::vec3 lightColor = glm::vec3(1.f, 1.f, 0.94f);
-		if (dynamicLight)
-		{
-			lightColor.x = sin((SDL_GetTicks() / 1000.0f) * 2.0f);
-			lightColor.y = sin((SDL_GetTicks() / 1000.0f) * 0.7f);
-			lightColor.z = sin((SDL_GetTicks() / 1000.0f) * 1.3f);
-		}
-
 		//Create Transformation Matrixes
 		glm::mat4 projection = glm::mat4(1.0f);
 		glm::mat4 view = glm::mat4(1.0f);
@@ -181,21 +136,26 @@ public:
 		glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//Point Light
-		glm::vec3 lightPos(0.0f, 0.0f, -1.0f);
-		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::translate(model, lightPos);
-		model = glm::scale(model, glm::vec3(0.2f));
+		//Draw Directional Light Model
+		glm::vec3 lightColor = glm::vec3(1.f, 1.f, 0.94f);
+		if (dynamicLight)
+		{
+			lightColor.x = sin((SDL_GetTicks() / 1000.0f) * 2.0f);
+			lightColor.y = sin((SDL_GetTicks() / 1000.0f) * 0.7f);
+			lightColor.z = sin((SDL_GetTicks() / 1000.0f) * 1.3f);
+		}
+		glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
+		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
 
-		pointLightShader.use();
+		dirLight.UpdateLightColor(ambientColor, diffuseColor);
+		dirLight.Draw(projection, view, lightColor);
 
-		pointLightShader.setMat4("projection", projection);
-		pointLightShader.setMat4("view", view);
-		pointLightShader.setMat4("model", model);
-		pointLightShader.setVec3("LightColor", lightColor);
-
-		lightVAO.Bind();
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		//Draw PointLights
+		for each (auto pointLight in pointLights)
+		{
+			pointLight.UpdateLightColor(ambientColor, diffuseColor);
+			pointLight.Draw(projection, view, lightColor);
+		}
 
 		//Bind Shader
 		shader.use();
@@ -203,21 +163,17 @@ public:
 		shader.setMat4("projection", projection);
 		shader.setMat4("view", view);
 		shader.setVec3("viewPos", camera.Position);
-
 		shader.setFloat("material.shininess", 32.0f);
 
-		glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
-		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
-
-		shader.setVec3("light.position", lightPos);
-		shader.setVec3("light.ambient", ambientColor);
-		shader.setVec3("light.diffuse", diffuseColor);
-		shader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+		dirLight.SetUniforms(shader);
+		for each (auto pointLight in pointLights)
+		{
+			pointLight.SetUniforms(shader);
+		}
 
 		//Bind Textures
 		specularTex.Bind();
 		diffuseTex.Bind();
-
 
 		//Bind Vertey Array Object
 		vao.Bind();

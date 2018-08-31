@@ -106,6 +106,15 @@
     <ClInclude Include="Renderer.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>Rendering\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>Rendering\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="LightModels.h">
+      <Filter>Rendering\Lights</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Rendering">
@@ -140,6 +149,9 @@
     </Filter>
     <Filter Include="GameEngineTest">
       <UniqueIdentifier>{c1ef0bd0-a7cc-45f9-afcb-f2fc5c7b4857}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Lights">
+      <UniqueIdentifier>{11ea2d54-adb9-4e34-a332-028a113db0fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
