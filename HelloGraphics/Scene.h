@@ -64,10 +64,10 @@ float vertices[] = {
 };
 
 glm::vec3 pointLightPositions[] = {
-	glm::vec3(0.7f,  0.2f,  2.0f),
-	glm::vec3(2.3f, -3.3f, -4.0f),
-	glm::vec3(-4.0f,  2.0f, -12.0f),
-	glm::vec3(0.0f,  0.0f, -3.0f)
+	glm::vec3(0.0f,  -5.f,  -35.0f),
+	glm::vec3(0.0f, -5.f, -5.0f),
+	glm::vec3(0.0f,  5.f, -5.0f),
+	glm::vec3(0.0f,  5.f, -35.0f)
 };
 
 VertexArray vao;
@@ -117,9 +117,14 @@ public:
 
 		dirLight = DirectionalLight(lightPos, glm::vec3(0.f, 0.f, -1.f), ambientColor, diffuseColor, glm::vec3(1.0f, 1.0f, 1.0f));
 
+		lightColor = glm::vec3(0.f, 0.f, 0.94f);
+
+		diffuseColor = lightColor * glm::vec3(0.5f);
+		ambientColor = diffuseColor * glm::vec3(0.2f);
+
 		for (size_t i = 0; i < 4; i++)
 		{
-			pointLights.push_back(PointLight(i, pointLightPositions[i], ambientColor, diffuseColor, glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f));
+			pointLights.push_back(PointLight(i, pointLightPositions[i], ambientColor, diffuseColor, glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.005f, 0.032f));
 		}
 	}
 
@@ -182,7 +187,7 @@ public:
 		{
 			// calculate the model matrix for each object and pass it to shader before drawing
 			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, glm::vec3(0.0f, -1.0f, -2.0f * i));
+			model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.0f * i));
 			if (rotateObjects)
 			{
 				float angle = 20.0f * i * (SDL_GetTicks() / 1000.0f);

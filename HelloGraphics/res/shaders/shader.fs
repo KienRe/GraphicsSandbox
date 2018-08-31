@@ -55,7 +55,7 @@ void main()
 
 	//PointLights
 	for(int i = 0; i < NR_POINT_LIGHTS; i++)
-		CalcPointLight(pointLights[i],norm,WorldPos,viewDir);
+		result += CalcPointLight(pointLights[i],norm,WorldPos,viewDir);
 
 	//Spot Light
 
