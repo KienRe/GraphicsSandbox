@@ -115,6 +115,12 @@
     <ClInclude Include="LightModels.h">
       <Filter>Rendering\Lights</Filter>
     </ClInclude>
+    <ClInclude Include="Import.h">
+      <Filter>Rendering\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Rendering\Assimp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Rendering">
@@ -152,6 +158,9 @@
     </Filter>
     <Filter Include="Rendering\Lights">
       <UniqueIdentifier>{11ea2d54-adb9-4e34-a332-028a113db0fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Assimp">
+      <UniqueIdentifier>{f1c68cd6-afad-4abf-9bd5-a5b4dbd9d213}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
