@@ -115,10 +115,10 @@
     <ClInclude Include="LightModels.h">
       <Filter>Rendering\Lights</Filter>
     </ClInclude>
-    <ClInclude Include="Import.h">
+    <ClInclude Include="Mesh.h">
       <Filter>Rendering\Assimp</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
+    <ClInclude Include="Import.h">
       <Filter>Rendering\Assimp</Filter>
     </ClInclude>
   </ItemGroup>
@@ -177,6 +177,9 @@
       <Filter>Rendering\Shaders\res</Filter>
     </None>
     <None Include="res\shaders\light.vs">
+      <Filter>Rendering\Shaders\res</Filter>
+    </None>
+    <None Include="res\shaders\singleColor.fs">
       <Filter>Rendering\Shaders\res</Filter>
     </None>
   </ItemGroup>

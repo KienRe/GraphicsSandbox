@@ -72,8 +72,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>C:\Lib\SDL2-2.0.7\include;C:\Lib\glew-2.1.0\include\;C:\Lib\glm;$(ProjectDir)IMGUI;C:\Lib\assimp-4.1.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Lib\SDL2-2.0.7\lib\x86;C:\Lib\glew-2.1.0\lib\Release\Win32;C:\Lib\assimp-4.1.0\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Lib\SDL2-2.0.7\include;C:\Lib\glew-2.1.0\include\;C:\Lib\glm;$(ProjectDir)IMGUI;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Lib\SDL2-2.0.7\lib\x86;C:\Lib\glew-2.1.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
@@ -102,7 +102,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;opengl32.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -164,6 +164,7 @@
     <None Include="res\shaders\light.vs" />
     <None Include="res\shaders\shader.fs" />
     <None Include="res\shaders\shader.vs" />
+    <None Include="res\shaders\singleColor.fs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />

@@ -72,6 +72,7 @@ glm::vec3 pointLightPositions[] = {
 
 VertexArray vao;
 Shader shader;
+Shader singleColorShader;
 Texture diffuseTex;
 Texture specularTex;
 DirectionalLight dirLight;
@@ -99,6 +100,7 @@ public:
 
 		//Shader Setup
 		Shader ourShader("res/shaders/shader.vs", "res/shaders/shader.fs");
+		Shader singleColor("res/shaders/shader.vs", "res/shaders/singleColor.fs");
 		ourShader.use();
 
 		ourShader.setInt("material.diffuse", 0);
@@ -107,6 +109,7 @@ public:
 		//Assign members
 		vao = vertexArray;
 		shader = ourShader;
+		singleColorShader = singleColor;
 
 		//Light Setup
 		glm::vec3 lightPos(0.0f, 0.0f, 8.f);
@@ -128,20 +131,45 @@ public:
 		}
 	}
 
+	void DrawBoxes(bool rotateObjects, float modleScale, Shader usedShader)
+	{
+		//Bind Vertey Array Object
+		vao.Bind();
+
+		for (unsigned int i = 0; i < 10; i++)
+		{
+			// calculate the model matrix for each object and pass it to shader before drawing
+			glm::mat4 model = glm::mat4();
+			model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.0f * i));
+
+			model = glm::scale(model, glm::vec3(modleScale, modleScale, modleScale));
+			if (rotateObjects)
+			{
+				float angle = 20.0f * i * (SDL_GetTicks() / 1000.0f);
+				model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.7f));
+			}
+			usedShader.setMat4("model", model);
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+	}
+
+
+
 	void Render(Camera& camera, bool dynamicLight, bool rotateObjects)
 	{
 		//Create Transformation Matrixes
 		glm::mat4 projection = glm::mat4(1.0f);
 		glm::mat4 view = glm::mat4(1.0f);
 
-		projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 20.f);
 		view = camera.GetViewMatrix();
 
-		//Clear Color
+		//Clear Screen
 		glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-		//Draw Directional Light Model
+		//Draw Directional Lights Model
 		glm::vec3 lightColor = glm::vec3(1.f, 1.f, 0.94f);
 		if (dynamicLight)
 		{
@@ -155,48 +183,53 @@ public:
 		dirLight.UpdateLightColor(ambientColor, diffuseColor);
 		dirLight.Draw(projection, view, lightColor);
 
-		//Draw PointLights
+		//Draw PointLights Model
 		for each (auto pointLight in pointLights)
 		{
 			pointLight.UpdateLightColor(ambientColor, diffuseColor);
 			pointLight.Draw(projection, view, lightColor);
 		}
 
-		//Bind Shader
+		//Setup Main Shader
 		shader.use();
-
+		//Material Unfirms
 		shader.setMat4("projection", projection);
 		shader.setMat4("view", view);
 		shader.setVec3("viewPos", camera.Position);
 		shader.setFloat("material.shininess", 32.0f);
-
+		//Light Unfiorms
 		dirLight.SetUniforms(shader);
 		for each (auto pointLight in pointLights)
 		{
 			pointLight.SetUniforms(shader);
 		}
-
-		//Bind Textures
+		//Texture Uniforms
 		specularTex.Bind();
 		diffuseTex.Bind();
 
-		//Bind Vertey Array Object
-		vao.Bind();
+		//Depth & Stencil Test
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+		glEnable(GL_STENCIL_TEST);
+		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
-		for (unsigned int i = 0; i < 10; i++)
-		{
-			// calculate the model matrix for each object and pass it to shader before drawing
-			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.0f * i));
-			if (rotateObjects)
-			{
-				float angle = 20.0f * i * (SDL_GetTicks() / 1000.0f);
-				model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.7f));
-			}
-			shader.setMat4("model", model);
+		DrawBoxes(rotateObjects, 1.f, shader);
+		//All Stencil Bits of the drawn Objects are now 1
 
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}
+		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+		glStencilMask(0x00);	//Disables writing to the stencil buffer
+		glDisable(GL_DEPTH_TEST);
+
+
+		singleColorShader.use();
+		singleColorShader.setMat4("projection", projection);
+		singleColorShader.setMat4("view", view);
+
+		DrawBoxes(rotateObjects, 1.4f, singleColorShader);
+
+		glStencilMask(0xFF);
+		glEnable(GL_DEPTH_TEST);
 
 		glCheckError();
 	}
