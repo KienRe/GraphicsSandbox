@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="stb_image_impl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="DirectionalLight.h" />
+    <ClInclude Include="InputData.h" />
+    <ClInclude Include="LightModels.h" />
+    <ClInclude Include="MouseData.h" />
+    <ClInclude Include="PhongScene.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="VertexArray.h" />
+    <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="VertexBufferLayout.h" />
+    <ClInclude Include="Debug.h" />
+    <ClInclude Include="PointLight.h" />
+  </ItemGroup>
+</Project>
