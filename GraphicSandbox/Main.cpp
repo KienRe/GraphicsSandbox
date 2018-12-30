@@ -4,6 +4,8 @@
 #include <GL/glew.h>
 
 #include "PhongScene.h"
+#include "VegtationScene.h"
+
 #include "Camera.h"
 
 static bool s_Running = true;
@@ -42,6 +44,7 @@ void Init()
 
 	//Setup
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
 	glGetError();	//OpenGL starts with an error in the queue, we need to discard that else we cause confusion!
 }
 
@@ -49,7 +52,8 @@ int main(int argc, char* args[])
 {
 	Init();
 
-	PhongScene scene;
+	//PhongScene phongScene;
+	VegetationScene vegScene;
 	Camera camera;
 
 	while (s_Running)
@@ -63,7 +67,7 @@ int main(int argc, char* args[])
 		Input::Update(event);
 		camera.Update();
 
-		scene.Render(camera);
+		vegScene.Render(camera);
 
 		SDL_PollEvent(&event);
 		SDL_GL_SwapWindow(window);

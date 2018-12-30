@@ -21,11 +21,11 @@ public:
 
 	}
 
-	Texture(const char* texturePath, GLenum format, int slot)
+	Texture(const char* texturePath, GLenum format, int slot, bool flip)
 	{
 		this->slot = slot;
 
-		stbi_set_flip_vertically_on_load(true);
+		stbi_set_flip_vertically_on_load(flip);
 		unsigned char *data = stbi_load(texturePath, &width, &height, &nrChannels, 0);
 
 		glGenTextures(1, &ID);
