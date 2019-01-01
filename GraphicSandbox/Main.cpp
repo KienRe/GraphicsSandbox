@@ -5,6 +5,8 @@
 
 #include "PhongScene.h"
 #include "VegtationScene.h"
+#include "CullScene.h"
+#include "FramebufferScene.h"
 
 #include "Camera.h"
 
@@ -53,7 +55,9 @@ int main(int argc, char* args[])
 	Init();
 
 	//PhongScene phongScene;
-	VegetationScene vegScene;
+	//VegetationScene vegScene;
+	//CullScene cullScene;
+	FrameBufferScene framebufferScene;
 	Camera camera;
 
 	while (s_Running)
@@ -67,7 +71,7 @@ int main(int argc, char* args[])
 		Input::Update(event);
 		camera.Update();
 
-		vegScene.Render(camera);
+		framebufferScene.Render(camera);
 
 		SDL_PollEvent(&event);
 		SDL_GL_SwapWindow(window);

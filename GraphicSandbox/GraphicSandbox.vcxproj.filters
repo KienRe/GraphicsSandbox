@@ -2,26 +2,90 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="stb_image_impl.cpp" />
+    <ClCompile Include="stb_image_impl.cpp">
+      <Filter>vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>sdl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="DirectionalLight.h" />
-    <ClInclude Include="InputData.h" />
-    <ClInclude Include="LightModels.h" />
-    <ClInclude Include="MouseData.h" />
-    <ClInclude Include="PhongScene.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="VertexArray.h" />
-    <ClInclude Include="VertexBuffer.h" />
-    <ClInclude Include="VertexBufferLayout.h" />
-    <ClInclude Include="Debug.h" />
-    <ClInclude Include="PointLight.h" />
-    <ClInclude Include="VegtationScene.h" />
-    <ClInclude Include="Cube.h" />
+    <ClInclude Include="CullScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="PhongScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="LightModels.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexArray.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferLayout.h">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="InputData.h">
+      <Filter>sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseData.h">
+      <Filter>sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="VegtationScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="FramebufferScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>opengl\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="Quad.h">
+      <Filter>opengl\primitive</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{480ac108-a70c-4396-ac9d-a193c61c7d2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{6dcd6ad5-6dfb-428b-a62a-51909f3c6cdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="opengl">
+      <UniqueIdentifier>{e50142e8-1951-4e0a-ab66-418a39e5ea6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdl">
+      <UniqueIdentifier>{266298ae-c08a-44ed-b3cc-4a924bf64883}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="opengl\primitive">
+      <UniqueIdentifier>{8a87a77e-92f1-4d3c-a784-101e75d31f1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

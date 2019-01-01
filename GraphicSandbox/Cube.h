@@ -54,6 +54,51 @@ float vertices[] = {
 	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 };
 
+float cubeVertices[] = {
+	// Back face
+	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, // Bottom-left
+	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right
+	 0.5f, -0.5f, -0.5f,  1.0f, 0.0f, // bottom-right         
+	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right
+	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, // bottom-left
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, // top-left
+	// Front face
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left
+	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-right
+	 0.5f,  0.5f,  0.5f,  1.0f, 1.0f, // top-right
+	 0.5f,  0.5f,  0.5f,  1.0f, 1.0f, // top-right
+	-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, // top-left
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left
+	// Left face
+	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-right
+	-0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-left
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-left
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-left
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-right
+	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-right
+	// Right face
+	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-left
+	 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-right
+	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right         
+	 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-right
+	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-left
+	 0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left     
+	// Bottom face
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // top-right
+	 0.5f, -0.5f, -0.5f,  1.0f, 1.0f, // top-left
+	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-left
+	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-left
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-right
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // top-right
+	// Top face
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, // top-left
+	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // bottom-right
+	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right     
+	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // bottom-right
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, // top-left
+	-0.5f,  0.5f,  0.5f,  0.0f, 0.0f  // bottom-left        
+};
+
 class Cube
 {
 public:
@@ -64,19 +109,20 @@ public:
 
 	Cube(glm::vec3 pos, float scale)
 	{
-		VertexBuffer vbo (vertices, sizeof(vertices));
+		VertexBuffer vbo (cubeVertices, sizeof(cubeVertices));
 		VertexBufferLayout layout;
 		layout.Push<float>(3);
-		layout.Push<float>(3);
+		//layout.Push<float>(3);
 		layout.Push<float>(2);
 
-		shader = Shader("res\\shaders\\shader.vs", "res\\shaders\\shader.fs");
+		shader = Shader("res\\shaders\\shader.vs", "res\\shaders\\singleColor.fs");
 
 		vao.AddBuffer(vbo, layout);
 
 		glm::mat4 model = glm::mat4();
 		model = glm::translate(model, pos);
 		model = glm::scale(model, glm::vec3(scale, scale, scale));
+		model = glm::rotate(model, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 
 	void Draw(glm::mat4 view, glm::mat4 proj)

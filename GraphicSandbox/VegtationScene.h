@@ -10,18 +10,9 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "Camera.h"
+
 #include "Cube.h"
-
-float transparentVertices[] = {
-	// positions         // texture Coords (swapped y coordinates because texture is flipped upside down)
-	0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
-	0.0f, -0.5f,  0.0f,  0.0f,  1.0f,
-	1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
-
-	0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
-	1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
-	1.0f,  0.5f,  0.0f,  1.0f,  0.0f
-};
+#include "Quad.h"
 
 Shader vegShader;
 VertexArray vegVAO;
